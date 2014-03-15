@@ -21,9 +21,14 @@
 
 %h4 send task
 
-%form(method="post" action="sendtask" role="form")
+%form(method="post" action="/sendtask")
   %div.row
     %div.form-group.col-md-4
       %label task list
       %textarea.form-control(name="tasks" rows="5" required)
   %button.btn.btn-info(type="submit") Submit
+
+%h4 stop task
+
+%form(method="post" action="/stop")
+  %button.btn.btn-danger(type="submit") Stop

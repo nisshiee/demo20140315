@@ -17,4 +17,9 @@ class RootController extends ApplicationController {
     }
     redirect("/")
   }
+
+  def stop = {
+    AkkaTaskService.stop
+    redirect("/")
+  }
 }

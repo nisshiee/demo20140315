@@ -19,5 +19,6 @@ class Reception extends Actor {
       case s: String => taskManager ! s
       case _ => ()
     }
+    case "stop" => taskManager ! TaskManager.Reset
   }
 }

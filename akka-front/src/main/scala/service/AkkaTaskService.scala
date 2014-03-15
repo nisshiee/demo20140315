@@ -22,4 +22,8 @@ object AkkaTaskService {
   def sendtask(list: List[String]): Unit = {
     actor ! list
   }
+
+  def stop: Unit = {
+    actor ! "stop"
+  }
 }

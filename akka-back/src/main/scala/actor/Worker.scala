@@ -1,13 +1,15 @@
 package org.nisshiee.akkaback
 
 import akka.actor._
+import akka.dispatch._
 
 object Worker {
 
   case object Finish
+  case object RestartCountup
 }
 
-class Worker extends Actor {
+class Worker extends Actor with RequiresMessageQueue[InterruptibleMessageQueue] {
 
   import Worker._
 
@@ -15,6 +17,14 @@ class Worker extends Actor {
     case s: String => {
       doWork(s)
       sender ! Finish
+    }
+    case Interruptible.Reset => context.become(reset)
+  }
+
+  def reset: Receive = {
+    case Interruptible.Restart => {
+      sender ! RestartCountup
+      context.unbecome
     }
   }
 
