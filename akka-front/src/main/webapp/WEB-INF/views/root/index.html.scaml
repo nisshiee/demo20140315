@@ -1,14 +1,29 @@
 - import scala.concurrent.Future
 - import scala.util.Success
--@ val hello: Future[String]
+-@ val status: Future[(Long, Long)]
 
-%h3 Hello World!
+%h3 Hello Akka!
 
 %hr/
 
-%p
-  - hello.value match
-    - case Some(Success(s)) =>
-      #{s}
-    - case _ =>
-      error
+%h4 progress
+
+- status.value match
+  - case Some(Success(t)) =>
+    %div.progress
+      - t match
+        - case (_, 0l) =>
+          %div.progress-bar(style="width:0%;")
+        - case (finish, all) =>
+          %div.progress-bar(style="width:#{finish.toDouble / all * 100.0}%;") #{finish} / #{all}
+  - case _ =>
+    %p error
+
+%h4 send task
+
+%form(method="post" action="sendtask" role="form")
+  %div.row
+    %div.form-group.col-md-4
+      %label task list
+      %textarea.form-control(name="tasks" rows="5" required)
+  %button.btn.btn-info(type="submit") Submit
