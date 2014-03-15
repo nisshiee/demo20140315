@@ -1,0 +1,14 @@
+- import scala.concurrent.Future
+- import scala.util.Success
+-@ val hello: Future[String]
+
+%h3 Hello World!
+
+%hr/
+
+%p
+  - hello.value match
+    - case Some(Success(s)) =>
+      #{s}
+    - case _ =>
+      error
